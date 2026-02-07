@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be My Valentine 💘</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+        background-size: 400% 400%;
+        animation: bgMove 12s ease infinite;
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+      }
+      @keyframes bgMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .card {
+        width: min(92%, 420px);
+        padding: 40px 30px 45px;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(18px);
+        border-radius: 28px;
+        text-align: center;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        z-index: 1;
+        margin: auto;
+      }
+      .emoji {
+        font-size: 68px;
+        margin-bottom: 12px;
+        animation: heartbeat 1.8s infinite;
+      }
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+      h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        color: #4a1c2f;
+        margin-bottom: 30px;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        min-height: 60px;
+      }
+      button {
+        padding: 14px 36px;
+        border-radius: 40px;
+        border: none;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+      #yes {
+        background: linear-gradient(135deg, #ff4d6d, #ff758f);
+        color: #fff;
+      }
+      #no {
+        background: rgba(255, 255, 255, 0.9);
+        color: #777;
+        position: fixed;
+        z-index: 9999;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        touch-action: none;
+      }
+      .footer {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        color: #4a1c2f;
+        font-size: 14px;
+        z-index: 2;
+      }
+      .heart {
+        position: absolute;
+        bottom: -20px;
+        animation: floatUp linear forwards;
+        pointer-events: none;
+      }
+      @keyframes floatUp {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-120vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="emoji">🐱❤️</div>
+      <h2>Oyee,<br />will you be my Valentine?</h2>
+      <div class="buttons">
+        <div style="width: 140px"><button id="yes">Yes 💖</button></div>
+        <div style="width: 140px"></div>
+      </div>
+    </div>
+
+    <button id="no">No 😢</button>
+
+    <footer class="footer">
+      <p>@Ravikant-Thanks for visiting • Made with love 💕</p>
+      <p id="visitor-count">Visitor Count: ...</p>
+    </footer>
+
+    <script>
+      const GOOGLE_SHEET_URL =
+        "https://script.google.com/macros/s/AKfycbx92oMaGycqVrZ164WuPJy-dlcVYr0DoxobUZ8WbHl0aNCLxg0aQfaDSjhDhQwqfk91aA/exec"; // <--- PASTE HERE
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+      const visitorDisplay = document.getElementById("visitor-count");
+
+      // Visitor Counter
+      let count =
+        localStorage.getItem("visCount") || Math.floor(Math.random() * 500);
+      count = parseInt(count) + 1;
+      localStorage.setItem("visCount", count);
+      visitorDisplay.innerText = `Visitor Count: ${count}`;
+
+      // No Button Logic
+      function moveButton() {
+        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+        noBtn.style.left =
+          Math.max(20, Math.floor(Math.random() * maxX)) + "px";
+        noBtn.style.top = Math.max(20, Math.floor(Math.random() * maxY)) + "px";
+      }
+      noBtn.addEventListener("mouseover", moveButton);
+      noBtn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        moveButton();
+      });
+
+      // Yes Button Logic
+      yesBtn.addEventListener("click", () => {
+        const name = prompt(
+          "मैं कितना ही थकूँ, तुझसे मिलने आने को दिल करता है, है किस्मत में तू नहीं शायद, फिर भी आजमाने को दिल करता है, तेरे चेहरे के रंग से कोई रंग चुराने को दिल करता है तू है ही ऐसी, कि तुझे ज़माने को दिखाने का दिल करता है। दिल ने सब कह दिया, अब बस एक सवाल है, इतना बताओ सनम, अब आपका क्या ख़याल है? ❤️✨"
+        );
+        if (!name) return;
+
+        confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 } });
+
+        // Send to Google Sheets
+        fetch(GOOGLE_SHEET_URL, {
+          method: "POST",
+          mode: "no-cors", // Required for Google Script
+          cache: "no-cache",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            date: new Date().toLocaleString(),
+            status: "YES!",
+          }),
+        });
+
+        alert(`Got it, ${name}! I've saved your answer! 💖`);
+      });
+
+      // Floating Hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+      setInterval(createHeart, 300);
+
+      window.onload = () => {
+        const rect = document.querySelector(".card").getBoundingClientRect();
+        noBtn.style.left = rect.left + rect.width / 2 + 10 + "px";
+        noBtn.style.top = rect.top + 235 + "px";
+      };
+    </script>
+  </body>
+</html>

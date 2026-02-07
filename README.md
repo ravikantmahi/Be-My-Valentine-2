@@ -3,7 +3,7 @@
 ## 🔗 [Live Demo](https://ravikantmahi.github.io/Be-My-Valentine-2/)
 
 <p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z/3oriO0OEd9QIDdllqo/giphy.gif" alt="Valentine Gif" width="150">
+  <img src="https://raw.githubusercontent.com/ravikantmahi/Be-My-Valentine/refs/heads/main/resources/cat-heart.gif" alt="Valentine Gif" width="150">
 </p>
 <h1 align="center"> Be-My-Valentine-2</h1>
 <h2 align="center">💘 Interactive Valentine's Proposal</h2>
